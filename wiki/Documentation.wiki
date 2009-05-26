@@ -1,0 +1,9 @@
+#summary Marimonda's documentation.
+#labels Phase-Design
+
+= Introduction =
+
+Here you can find resources for the documentation of Marimonda.
+
+
+= Developer documentation =
