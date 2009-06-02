@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# Copyright (c) 2009, Yamil José Llanos Parra. All rights reserved.
+
 '''
 Created on 24/05/2009
 
@@ -13,6 +17,7 @@ class Filesystem():
     maxVolSize = 0  #Maximum partition Size
     filenameLength = 0 #Maximum number of characters supported for file name
     perm = Permissions() 
+    type = ''
 
     def __init__(selfparams):
         '''

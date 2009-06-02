@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# Copyright (c) 2009, Yamil José Llanos Parra. All rights reserved.
+
 '''
 Created on 24/05/2009
 
@@ -6,11 +10,11 @@ Created on 24/05/2009
 
 class AppSettings():
     '''
-    classdocs
+    Application's settings
     '''
 
-    fileSystemType = 'default'
-    appLanguage = 'default'
+    fileSystemType = 'EXT2'
+    appLanguage = 'en_us'
 
     def __init__(selfparams):
         '''
