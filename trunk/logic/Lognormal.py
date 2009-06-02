@@ -3,28 +3,25 @@
 # Copyright (c) 2009, Yamil José Llanos Parra. All rights reserved.
 
 '''
-Created on 24/05/2009
+Created on 31/05/2009
 
 @author: yllanos
 '''
 
-class GeneralModelSettings():
+from Distribution import *
+
+class Lognormal(Distribution):
     '''
     classdocs
     '''
 
-    superCycles = 5
-    writeDeletions = 0    #Write/delete operations
-    mean = 0.0
-    stdDev = 800
+    mean = 3.5  #Mean file size
+    stdDev = 3.5    #Standard deviation
+    name = 'Lognormal'
 
     def __init__(selfparams):
         '''
         Constructor
         '''
         
-    def main(self):
-        '''
-        
-        '''
         
