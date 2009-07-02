@@ -92,6 +92,18 @@ class EXT2BlockGroup():
         else:
             return secondIndirectList.append(firstIndirectList.append(fill_first_indirect_blocks(blocksNeeded)))
 
+    def fill_third_indirect_blocks(self, blocksNeeded):
+        '''
+        Similar to fill_second_indirect_blocks(), but higher in the hierarchy.
+        It returns a hierarchical list with 3rd-level blocks indirection.
+        '''
+        thirdIndirectList = []
+        if blocksNeeded > 12:
+            pass
+        else:
+            secondIndirectList = []
+            return thirdIndirectList.append(secondIndirectList.append(fill_second_indirect_blocks(blocksNeeded)))
+
     def find_block(self):
         '''
         
@@ -130,7 +142,11 @@ class EXT2BlockGroup():
             else:
                 if blocksNeeded > firstIndirection and blocksNeeded <= secondIndirection   #2nd-Indirection
                     blocksList.append(fill_first_indirect_blocks(blocksNeeded-12))
-                    blocksList.append(fill_second_indirect_blocks(blocksNeeded - firstIndirection))
+                    blocksList.append(fill_second_indirect_blocks(blocksNeeded - 12 - firstIndirection))
                     return blocksList
-                if blocksNeeded > secondIndirection and blocksNeeded <= thirdIndirection  #3rd-Indirection
-                    pass
+                else:
+                    if blocksNeeded > secondIndirection and blocksNeeded <= thirdIndirection  #3rd-Indirection
+                        blocksList.append(fill_first_indirect_blocks(blocksNeeded-12))
+                        blocksList.append(fill_second_indirect_blocks(blocksNeeded - 12 - firstIndirection))
+                        blocksList.append(fill_third_indirect_blocks(blocksNeeded - 12 - firstIndirection - secondIndirection))
+                        return blocksList
