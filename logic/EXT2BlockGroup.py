@@ -81,13 +81,14 @@ class EXT2BlockGroup():
         secondIndirectList = []
         firstIndirectSets = int(ceil(blocksNeeded/12))  #to compute how many 1st-indirect sets of blocks in groups of 12 we need
         if blocksNedded > 12:
-            i = 1
+            i = 1  #should be 1 because firstIndirectSets starts at set 0
             while i <= firstIndirectSets:
                 firstIndirectList = []
                 secondIndirectList.append(firstIndirectList.append(fill_first_indirect_blocks(12)))
                 i = i + 1
             remaining = blocksNeeded - (12*firstIndirectSets)
-            secondIndirectList.append(firstIndirectList.append(fill_first_indirect_blocks(remaining)))
+            if remaining > 0:
+                secondIndirectList.append(firstIndirectList.append(fill_first_indirect_blocks(remaining)))
             return secondIndirectList
         else:
             return secondIndirectList.append(firstIndirectList.append(fill_first_indirect_blocks(blocksNeeded)))
@@ -98,10 +99,18 @@ class EXT2BlockGroup():
         It returns a hierarchical list with 3rd-level blocks indirection.
         '''
         thirdIndirectList = []
-        if blocksNeeded > 12:
-            pass
+        secondIndirectSets = int(ceil(blocksNeeded/144))  #to compute how many 2nd-indirect block sets we need
+        if blocksNeeded > 144:
+            i = 1
+            while i <= secondIndirectSets:
+                secondIndirectList = []
+                thirdIndirectList.append(secondIndirectList.append(fill_second_indirect_blocks(144)))
+                i = i + 1
+            remaining = blocksNeeded - (144*secondIndirectSets)
+            if remaining > 0
+                thirdIndirectList.append(secondIndirectList.append(fill_second_indirect_blocks(remaining)))
+            return thirdIndirectList
         else:
-            secondIndirectList = []
             return thirdIndirectList.append(secondIndirectList.append(fill_second_indirect_blocks(blocksNeeded)))
 
     def find_block(self):
