@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Copyright (c) 2009, Yamil José Llanos Parra. All rights reserved.
 
@@ -15,13 +14,11 @@ class Lognormal(Distribution):
     classdocs
     '''
 
-    mean = 3.5  #Mean file size
-    stdDev = 3.5    #Standard deviation
-    name = 'Lognormal'
-
-    def __init__(selfparams):
+    def __init__(self):
         '''
         Constructor
         '''
-        
+        self.mean = 3.5  #Mean file size
+        self.stdDev = 3.5    #Standard deviation
+        self.name = 'Lognormal'
         

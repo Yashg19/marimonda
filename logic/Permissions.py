@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Copyright (c) 2009, Yamil José Llanos Parra. All rights reserved.
 
@@ -13,12 +12,10 @@ class Permissions():
     classdocs
     '''
 
-    allowsACL = True
-    allowsPermission = True
-    permissionsType = 'default'
-
-    def __init__(selfparams):
+    def __init__(self):
         '''
         Constructor
         '''
-        
+        self.allowsACL = True
+        self.allowsPermission = True
+        self.permissionsType = 'default'

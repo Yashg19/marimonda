@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Copyright (c) 2009, Yamil José Llanos Parra. All rights reserved.
 
@@ -13,14 +12,12 @@ class Inode():
     classdocs
     '''
 
-    i_inode = 0
-    i_isize = 0
-    i_iblock = []
-    # i_gid : word;     #User group identifier
-    # i_uid : word;     #Owner identifier
-
-    def __init__(selfparams):
+    def __init__(self):
         '''
         Constructor
         '''
-        
+        self.i_inode = 0
+        self.i_isize = 0
+        self.i_iblock = []
+        # self.i_gid : word;     #User group identifier
+        # self.i_uid : word;     #Owner identifier

@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Copyright (c) 2009, Yamil José Llanos Parra. All rights reserved.
 
@@ -19,14 +18,15 @@ class EXT2Installer(OSInstaller):
     classdocs
     '''
 
-    filesystem = EXT2()
-    osSettings = EXT2InstallerSettings()
 
-    def __init__(selfparams):
+
+    def __init__(self):
         '''
         Constructor
         '''
-        
+        self.filesystem = EXT2()
+        self.osSettings = EXT2InstallerSettings()
+
     def install(self):
         '''
         Installs the EXT2 file system depending 

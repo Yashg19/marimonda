@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Copyright (c) 2009, Yamil José Llanos Parra. All rights reserved.
 
@@ -13,14 +12,12 @@ class Filesystem():
     classdocs
     '''
 
-    maxnFiles = 0   #Maximum number of files supported
-    maxVolSize = 0  #Maximum partition Size
-    filenameLength = 0 #Maximum number of characters supported for file name
-    perm = Permissions() 
-    type = ''
-
-    def __init__(selfparams):
+    def __init__(self):
         '''
         Constructor
         '''
-        
+        self.maxnFiles = 0   #Maximum number of files supported
+        self.maxVolSize = 0  #Maximum partition Size
+        self.filenameLength = 0 #Maximum number of characters supported for file name
+        self.perm = Permissions()
+        self.type = ''

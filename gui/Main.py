@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright (c) 2009, Yamil José Llanos Parra. All rights reserved.
 
 '''
@@ -13,10 +14,5 @@ class Main(Empty):
     classdocs
     '''
 
-    def __init__(self):
-        w = gtk.Window()
-        w.resize(500,500)
-        w.connect('destroy', gtk.main_quit)
-        w.show()
-        gtk.main()
+
         
