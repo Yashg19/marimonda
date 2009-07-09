@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Copyright (c) 2009, Yamil José Llanos Parra. All rights reserved.
 
@@ -13,15 +12,15 @@ class GeneralModelSettings():
     classdocs
     '''
 
-    superCycles = 5
-    writeDeletions = 0    #Write/delete operations
-    mean = 0.0
-    stdDev = 800
 
-    def __init__(selfparams):
+    def __init__(self):
         '''
         Constructor
         '''
+        self.superCycles = 5
+        self.writeDeletions = 0    #Write/delete operations
+        self.mean = 0.0
+        self.stdDev = 800
         
     def main(self):
         '''

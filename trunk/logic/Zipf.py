@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Copyright (c) 2009, Yamil José Llanos Parra. All rights reserved.
 
@@ -15,12 +14,10 @@ class Zipf(Distribution):
     classdocs
     '''
 
-    shape = 1.675
-    name = 'Zipf'
-
-    def __init__(selfparams):
+    def __init__(self):
         '''
         Constructor
         '''
-        
+        self.shape = 1.675
+        self.name = 'Zipf'
         

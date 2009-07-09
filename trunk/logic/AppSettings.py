@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Copyright (c) 2009, Yamil José Llanos Parra. All rights reserved.
 
@@ -13,11 +12,11 @@ class AppSettings():
     Application's settings
     '''
 
-    fileSystemType = 'EXT2'
-    appLanguage = 'en_us'
 
-    def __init__(selfparams):
+    def __init__(self):
         '''
         Constructor
         '''
+        self.fileSystemType = 'EXT2'
+        self.appLanguage = 'en_us'
         

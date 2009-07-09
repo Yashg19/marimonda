@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Copyright (c) 2009, Yamil José Llanos Parra. All rights reserved.
 
@@ -17,40 +16,17 @@ class EXT2BlockGroup():
     This class represents a single Block Group
     '''
 
-    inodeTable = {}
-    inodeBitmap = {}
-    dataBlocksBitmap = {}
-    groupDescriptor = EXT2GroupDescriptor()
-    groupDescriptor.bgFreeBlocksCount = osSettings.nBlockGroups
-    groupDescriptor.bgFreeInodesCount = osSettings.inodesPerGroup
-
-    def __init__(selfparams):
+    def __init__(self):
         '''
         Constructor
         '''
+        self.inodeTable = {}
+        self.inodeBitmap = {}
+        self.dataBlocksBitmap = {}
+        self.groupDescriptor = EXT2GroupDescriptor()
+        self.groupDescriptor.bgFreeBlocksCount = osSettings.nBlockGroups
+        self.groupDescriptor.bgFreeInodesCount = osSettings.inodesPerGroup
         
-    def create_inode(self, filesize):     #Debería crear los bloques del archivo de una vez
-        '''
-        This method creates the inode for every file and
-        also creates the associated blocks by calling the
-        get_blocks() method.
-        It returns an Inode object.
-        '''
-        newInode = Inode()
-        if inodeTable.__len__() > 0:
-            newInode.i_inode = inodeTable.__len__() + 1
-        else:
-            newInode.i_inode = 0
-        newInode.i_isize = filesize
-        if filesize < osSettings.blockSize:
-            blocksNeeded = 1
-        elif (filesize % osSettings.blockSize) > 0:
-            blocksNeeded = int(filesize/osSettings.blockSize) + 1
-        elif (filesize % osSettings.blockSize) == 0:
-            blocksNeeded = int(filesize/osSettings.blockSize)
-        newInode.i_iblock = get_blocks(blocksNeeded)
-        return newInode
-
     def fill_direct_blocks(self, blocksNeeded):
         '''
         This method fills a list with the blocks
@@ -60,7 +36,7 @@ class EXT2BlockGroup():
         i = 1
         directBlocksList = []
         while i <= blocksNeeded:
-            directBlocksList.append(find_block())
+            directBlocksList.append(self.find_block_prealloc())
             i = i + 1
         return directBlocksList
 
@@ -70,7 +46,7 @@ class EXT2BlockGroup():
         returns a hierarchical list representing the 1st-level redirection
         '''
         firstIndirectList = []
-        firstIndirectList.append(fill_direct_blocks(blocksNeeded))
+        firstIndirectList.append(self.fill_direct_blocks(blocksNeeded))
         return firstIndirectList
 
     def fill_second_indirect_blocks(self,blocksNeeded):
@@ -84,14 +60,14 @@ class EXT2BlockGroup():
             i = 1  #should be 1 because firstIndirectSets starts at set 0
             while i <= firstIndirectSets:
                 firstIndirectList = []
-                secondIndirectList.append(firstIndirectList.append(fill_first_indirect_blocks(12)))
+                secondIndirectList.append(firstIndirectList.append(self.fill_first_indirect_blocks(12)))
                 i = i + 1
             remaining = blocksNeeded - (12*firstIndirectSets)
             if remaining > 0:
-                secondIndirectList.append(firstIndirectList.append(fill_first_indirect_blocks(remaining)))
+                secondIndirectList.append(firstIndirectList.append(self.fill_first_indirect_blocks(remaining)))
             return secondIndirectList
         else:
-            return secondIndirectList.append(firstIndirectList.append(fill_first_indirect_blocks(blocksNeeded)))
+            return secondIndirectList.append(firstIndirectList.append(self.fill_first_indirect_blocks(blocksNeeded)))
 
     def fill_third_indirect_blocks(self, blocksNeeded):
         '''
@@ -104,20 +80,14 @@ class EXT2BlockGroup():
             i = 1
             while i <= secondIndirectSets:
                 secondIndirectList = []
-                thirdIndirectList.append(secondIndirectList.append(fill_second_indirect_blocks(144)))
+                thirdIndirectList.append(secondIndirectList.append(self.fill_second_indirect_blocks(144)))
                 i = i + 1
             remaining = blocksNeeded - (144*secondIndirectSets)
             if remaining > 0
-                thirdIndirectList.append(secondIndirectList.append(fill_second_indirect_blocks(remaining)))
+                thirdIndirectList.append(secondIndirectList.append(self.fill_second_indirect_blocks(remaining)))
             return thirdIndirectList
         else:
-            return thirdIndirectList.append(secondIndirectList.append(fill_second_indirect_blocks(blocksNeeded)))
-
-    def find_block(self):
-        '''
-        
-        '''
-        return None
+            return thirdIndirectList.append(secondIndirectList.append(self.fill_second_indirect_blocks(blocksNeeded)))
     
     def find_block_prealloc(self):
         '''
@@ -131,31 +101,4 @@ class EXT2BlockGroup():
         '''
         return None
 
-    def get_blocks(self,blocksNeeded):
-        '''
-        Calculates and creates the number of needed inodes for a file,
-        including both the direct and indirect ones.
-        It returns a list with the blocks.
-        '''
-        firstIndirection = (osSettins.blockSize/4) + 11
-        secondIndirection = ((osSettings.blockSize/4)*(osSettings.blockSize/4)) + firstIndirection
-        thirdIndirection = ((osSettings.blockSize/4)*(osSettings.blockSize/4)*(osSettings.blockSize/4)) + secondIndirection
-        if blocksNeeded <= 12:  #Direct addressing
-            return fill_direct_blocks(blocksNeeded)
-        else:
-            blocksList = []
-            blocksList.append(fill_direct_blocks(blocksNeeded))
-            if blocksNeeded > 12 and blocksNeeded <= firstIndirection #1st-Indirection
-                blocksList.append(fill_first_indirect_blocks(blocksNeeded-12))
-                return blocksList
-            else:
-                if blocksNeeded > firstIndirection and blocksNeeded <= secondIndirection   #2nd-Indirection
-                    blocksList.append(fill_first_indirect_blocks(blocksNeeded-12))
-                    blocksList.append(fill_second_indirect_blocks(blocksNeeded - 12 - firstIndirection))
-                    return blocksList
-                else:
-                    if blocksNeeded > secondIndirection and blocksNeeded <= thirdIndirection  #3rd-Indirection
-                        blocksList.append(fill_first_indirect_blocks(blocksNeeded-12))
-                        blocksList.append(fill_second_indirect_blocks(blocksNeeded - 12 - firstIndirection))
-                        blocksList.append(fill_third_indirect_blocks(blocksNeeded - 12 - firstIndirection - secondIndirection))
-                        return blocksList
+
