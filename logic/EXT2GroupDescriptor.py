@@ -22,3 +22,4 @@ class EXT2GroupDescriptor():
         '''
         self.bgFreeBlocksCount = None
         self.bgFreeInodesCount = None
+        self.i_prealloc_block = None #logical block number of the next preallocated block to be used
