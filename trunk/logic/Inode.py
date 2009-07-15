@@ -19,5 +19,6 @@ class Inode():
         self.i_inode = 0
         self.i_isize = 0
         self.i_iblock = []
+        self.i_prealloc_count #number of data blocks preallocated to a file that are still unused
         # self.i_gid : word;     #User group identifier
         # self.i_uid : word;     #Owner identifier

@@ -34,6 +34,7 @@ class EXT2SuperBlock():
     #    self.s_first_ino = 0 #Number of first nonreserved inode
     #    self.s_inode_size = 0  #Size of on-disk inode structure
         self.s_blockgroup_nr = 0 #Block group number of this superblock
-        self.s_prealloc_blocks = 0 #Number of blocks to preallocate
+        self.s_prealloc_blocks = 8 #Number of blocks to preallocate
+        self.s_prealloc_block = 1  #Next preallocated block to be used
     #    self.s_prealloc_dir_blocks = 0 #Number of blocks to preallocate for directories
         

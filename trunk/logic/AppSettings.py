@@ -19,4 +19,5 @@ class AppSettings():
         '''
         self.fileSystemType = 'EXT2'
         self.appLanguage = 'en_us'
+        self.version = '0.1-Alpha'
         

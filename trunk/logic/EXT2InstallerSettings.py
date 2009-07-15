@@ -28,3 +28,4 @@ class EXT2InstallerSettings():
         self.inodesPerGroup = 8*blocksPerGroup
         self.nOperations = 300000
         self.targetDistribution = Lognormal()
+        self.prealloc_blocks = 8 #default number of blocks to preallocate
