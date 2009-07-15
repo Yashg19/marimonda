@@ -22,7 +22,7 @@ class EXT2(Filesystem):
         Constructor
         '''
         self.superBlock = EXT2SuperBlock()
-        self.blockGroups = EXT2BlockGroup()
+        self.blockGroups = {}
         self.partitionSize = osSettings.partitionSize
         self.blockSize = osSettings.blockSize
         self.nBlockGroups = osSettings.nBlockGroups    #Number of block groups
@@ -41,21 +41,24 @@ class EXT2(Filesystem):
             segmentList = []
             segmentList = self.blockGroups[localgroup].find_blocks_prealloc(int(ceil(blocksNeeded/self.superBlock.s_prealloc_blocks)))
             if segmentList == False:
+                segmentList = []
                 localGroup = find_group()
                 if localGroup != False:
-                    segmentList = self.blockGroups[localGroups].find_blocks_no_prealloc(self.superBlock.s_prealloc_blocks)
+                    segmentList.append(self.blockGroups[localGroups].find_blocks_no_prealloc(self.superBlock.s_prealloc_blocks))
             i+=1
         remaining = blocksNeeded - (self.superBlock.s_prealloc_blocks*int(ceil(blocksNeeded/self.superBlock.s_prealloc_blocks)))
         if remaining > 0:
             segmentList = []
             segmentList = self.blockGroups[localgroup].find_blocks_prealloc(remaining)
             if segmentList == False:
+                    segmentList = []
                     localGroup = find_group()
                     if localGroup != False:
-                        self.blockGroups[localGroup].find_blocks_no_prealloc(remaining)
+                        segmentList.append(self.blockGroups[localGroup].find_blocks_no_prealloc(remaining))
                     else:
                         return False
             directBlocksList.append(segmentList)
+        self.currentGroup = localGroup
         return directBlocksList
 
     def create_file(self, fileSize):
@@ -156,6 +159,7 @@ class EXT2(Filesystem):
             return thirdIndirectList
         else:
             return thirdIndirectList.append(secondIndirectList.append(self.fill_second_indirect_blocks(blocksNeeded)))
+
 
     def find_group(self, currentGroup):
         '''
