@@ -1,0 +1,1 @@
+Marimonda is a file system simulator developed in Python and inittially oriented to support the EXT family of File systems.  It is focused on revealing the statistics, mechanisms and workload models needed to accuratly characterize the evolution of file systems as they are used, excluding the physical characteristics of disks.
